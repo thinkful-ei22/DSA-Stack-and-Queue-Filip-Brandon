@@ -73,38 +73,32 @@ function matchingParens(expression){
     return ('All parentheses matched!');
   }
 
-
-
-// for (let i =0; i< expression.length; i++){
-
-//   if (expression[i] === '('){
-//     expStack.push(expression[i]);
-//     positionCounter++;
-//   }
-//   else if (expression[i] === ')'){
-//     if (expStack.top === null){
-//       return ('ERROR: mismatched parentheses at position ' + positionCounter);
-//     }
-//     else if (expStack.top.data === '('){
-//       expStack.pop();
-//       positionCounter--;
-//     }
-//     else {
-//       return ('ERROR: mismatched parentheses at position ' + positionCounter);
-//     }
-//   }
-// }
-
-// if (expStack.top !== null){
-//   return ('ERROR: mismatched parentheses at position '+ positionCounter);
-// }
-// else {
-//   return ('All parentheses matched!');
-// }
-
-
 }
 
+//input: 7->1->3->5
+//output: 1-3-5-7
+function sortStack(stack){
+  let inputStack = stack;
+  let temporaryStack = new Stack();
+  let temp;
+
+  while (inputStack.top !== null){
+    temp = inputStack.pop(); //5
+    if (temporaryStack.top === null || temp <= temporaryStack.top.data ){ 
+      temporaryStack.push(temp); //null -> 5,3,1
+    }
+    else {
+
+      while (temp> temporaryStack.top.data  && temporaryStack !== null){ //while 7 > 5,3,1
+        let newInput = temporaryStack.pop(); //1,
+        inputStack.push(newInput);
+      }
+      temporaryStack.push(temp);
+    }
+  }
+
+  return temporaryStack;
+}
 
 
 
@@ -138,7 +132,20 @@ function main (){
 
   //  Write a function that takes an arithmetic expression as an argument and returns the position in the expression where a parenthesis is missing or incorrect
 
-  console.log(matchingParens('() ()   )'));
+  // console.log(matchingParens('() ()   )'));
+
+
+  let unSortedStack = new Stack();
+  unSortedStack.push(7);
+
+  unSortedStack.push(5);
+  unSortedStack.push(3);
+  unSortedStack.push(3);
+
+  unSortedStack.push(1);
+  unSortedStack.push(7);
+
+  console.log(JSON.stringify(sortStack(unSortedStack)));
 }
 
 
