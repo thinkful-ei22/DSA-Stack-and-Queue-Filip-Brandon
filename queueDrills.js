@@ -68,11 +68,34 @@ function dancePairing(queue) {
   
 }
 
+// The Ophidian Bank
+
+function ophidianBank(queue, minutes) {
+
+
+  for (let i = minutes; i > 0; i-- ) {
+    if (Math.random() > 0.25 ) {
+      queue.dequeue();
+    } else {
+      queue.enqueue(queue.dequeue());
+    }
+  }
+
+  let queueLength = 0;
+  while(queue.first !== null) {
+    queue.dequeue();
+    queueLength++;
+  }
+
+  console.log(`After ${minutes} ${minutes === 1 ? 'minute' : 'minutes'}, the queue has ${queueLength} ${queueLength === 1 ? 'person' : 'people'} in it.`);
+
+}
+
 
 function main() {
 
-  let starTrekQ = new Queue();
-  let starTrekS = new Stack();
+  // let starTrekQ = new Queue();
+  // let starTrekS = new Stack();
 
   // Queue Implementation using Stack tests
   // push replaces enqueue
@@ -106,6 +129,23 @@ function main() {
   // danceQueue.enqueue({sex: 'F', name: 'Beyonce'});
 
   // dancePairing(danceQueue);
+
+  // The Ophidian Bank
+  let bankQueue = new Queue();
+
+  bankQueue.enqueue('Walter');
+  bankQueue.enqueue('Ed');
+  bankQueue.enqueue('Coy');
+  bankQueue.enqueue('Tora');
+  bankQueue.enqueue('Grayce');
+  bankQueue.enqueue('Letisha');
+  bankQueue.enqueue('Mozella');
+  bankQueue.enqueue('Estelle');
+  bankQueue.enqueue('Barbera');
+  bankQueue.enqueue('Britteny');
+
+  ophidianBank(bankQueue, 11);
+
 
 
 
